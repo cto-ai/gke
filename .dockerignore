@@ -1,0 +1,6 @@
+Dockerfile
+node_modules
+.terraform
+*.tfstate
+*.tfstate.backup
+.git

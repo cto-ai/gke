@@ -1,0 +1,26 @@
+version: "1"
+commands:
+  - name: gke:1.0.0
+    description: An Op to automate the creation and destruction of GKE clusters
+    public: true
+    sourceCodeURL: "https://github.com/cto-ai/gke"
+    run: node /ops/index.js
+    sdk: "2"
+    src:
+      - Dockerfile
+      - src
+      - package.json
+      - package-lock.json
+      - .dockerignore
+      - tsconfig.json
+    mountCwd: false
+    mountHome: false
+    help:
+      usage: |-
+        This Op requires GCP credentials. Please review the Op readme for details on how to generate and set up these credentials as secrets.
+
+        Options:
+          * Create public/private GKE cluster
+          * Destroy public/private GKE cluster
+      arguments: false
+      options: false
