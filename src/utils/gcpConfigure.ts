@@ -63,20 +63,20 @@ const configureAutoscaling = async (): Promise<AutoscalingConfig> => {
 
   if (autoscaling_enable) {
     const autoscalingInput: {
-      asg_min_size: string
-      asg_max_size: string
+      asg_min_size: number
+      asg_max_size: number
     } = await ux.prompt(gkeAutoscalingPrompts)
     return {
       autoscaling_enable,
-      asg_desired_capacity: parseInt(autoscalingInput.asg_min_size),
-      asg_min_size: parseInt(autoscalingInput.asg_min_size),
-      asg_max_size: parseInt(autoscalingInput.asg_max_size)
+      asg_desired_capacity: autoscalingInput.asg_min_size,
+      asg_min_size: autoscalingInput.asg_min_size,
+      asg_max_size: autoscalingInput.asg_max_size
     }
   } else {
     const { asg_desired_capacity } = await getValidatedPrompt(
       gkeCapacityPrompt,
       (resp: any) => {
-        return parseInt(resp.asg_desired_capacity) > 0
+        return resp.asg_desired_capacity > 0
       },
       'Number must be at least 1!',
     )
@@ -155,6 +155,8 @@ export const configureWorkerNodes = async (profileConfig: GCPConfig, region: str
       ...autoscalingConfig,
       oauthScopes,
     })
+
+    console.log('workers', workers)
 
     const { anotherWorkerGroup } = await ux.prompt(anotherWorkerGroupPrompt)
     another = anotherWorkerGroup

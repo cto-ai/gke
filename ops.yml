@@ -1,6 +1,6 @@
 version: "1"
 commands:
-  - name: gke:1.0.0
+  - name: gke:1.0.2
     description: An Op to automate the creation and destruction of GKE clusters
     public: true
     sourceCodeURL: "https://github.com/cto-ai/gke"

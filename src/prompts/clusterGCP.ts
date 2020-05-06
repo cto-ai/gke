@@ -49,9 +49,9 @@ export const generateGKEmachineTypePrompts = (gcpSizes: string[]): Question<Prom
 }
 
 export const gkeCapacityPrompt: Question<PromptAnswer> = {
-  type: 'input',
+  type: 'number',
   name: 'asg_desired_capacity',
-  default: '1',
+  default: 1,
   message: `Please select the number of nodes per zone you would like to start with`,
 }
 
@@ -91,15 +91,15 @@ export const generateGKEMasterCidrPrompt = (exclusions: boolean): Question<Strin
 
 export const gkeAutoscalingPrompts: Question[] = [
   {
-    type: 'input',
+    type: 'number',
     name: 'asg_min_size',
-    default: '1',
+    default: 1,
     message: `${magenta('Please select a minimum & maximum number of worker nodes per zone for the autoscaler:')} \nMinimum number of nodes per zone`,
   },
   {
-    type: 'input',
+    type: 'number',
     name: 'asg_max_size',
-    default: '2',
+    default: 2,
     message: `Maximum number of nodes per zone`,
   },
 ]
