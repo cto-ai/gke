@@ -19,7 +19,7 @@ FROM registry.cto.ai/official_images/node:2-12.13.1-stretch-slim AS final
 
 ENV CLOUD_SDK_VERSION=274.0.1
 ENV PATH /usr/local/bin/google-cloud-sdk/bin:$PATH
-RUN apt update && apt install -y curl python \
+RUN apt-get update && apt-get install -y curl python && apt-get clean && rm -rf /var/lib/apt/lists\
   && curl -Os https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz \
     && tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz \
     && rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz \
@@ -27,7 +27,8 @@ RUN apt update && apt install -y curl python \
     && gcloud components install beta \
     && cd /usr/local/bin/google-cloud-sdk/bin \
     && gcloud config set core/disable_usage_reporting true \
-    && gcloud config set component_manager/disable_update_check true
+    && gcloud config set component_manager/disable_update_check true \
+    && rm -rf /usr/local/bin/google-cloud-sdk/.install
 
 WORKDIR /ops
 
